@@ -20,7 +20,15 @@ interface DiscordClientOptions extends Omit<ClientOptions, 'intents'> {
     | BitFieldResolvable<keyof typeof DiscordGatewayIntentsString, number>;
 }
 
-type CommandAction = (interaction: ChatInputCommandInteraction) => void;
+type CommandAction = (
+  interaction: ChatInputCommandInteraction,
+  options: ChatInputCommandInteraction['options'],
+) => void;
+
+interface CompleteCommand {
+  command: ApplicationCommandDataResolvable;
+  execute: CommandAction;
+}
 
 export class DiscordClient extends Client {
   private commands: Collection<
@@ -58,6 +66,12 @@ export class DiscordClient extends Client {
     this.commands.set(command, callback);
   }
 
+  public addCommands(commands: Array<CompleteCommand>) {
+    for (const { command, execute } of commands) {
+      this.addCommand(command, execute);
+    }
+  }
+
   public handleCommands(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
     const { commandName } = interaction;
@@ -66,6 +80,6 @@ export class DiscordClient extends Client {
       (_, key: any) => key.name === commandName,
     );
 
-    command?.(interaction);
+    command?.(interaction, interaction.options);
   }
 }

@@ -12,4 +12,40 @@ client.addCommand(
   },
 );
 
-client.login('');
+client.addCommand(
+  {
+    name: 'hello-with-user',
+    description: 'reply Hello, @user',
+    options: [
+      { name: 'user', type: 6, description: 'user to hello', required: true },
+    ],
+  },
+  (interaction, options) => {
+    const user = options.getUser('user');
+
+    if (user) {
+      interaction.reply(`Hello, ${user.username}`);
+    }
+  },
+);
+
+client.addCommands([
+  {
+    command: {
+      name: 'hello-with-user-from-array',
+      description: 'reply Hello, @user',
+      options: [
+        { name: 'user', type: 6, description: 'user to hello', required: true },
+      ],
+    },
+    execute: (interaction, options) => {
+      const user = options.getUser('user');
+
+      if (user) {
+        interaction.reply(`Hello, ${user.username}`);
+      }
+    },
+  },
+]);
+
+client.login();
