@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && node built/"
+    "test": "npm run build && node built/",
+    "eslint": "eslint . --cache",
+    "eslint-fix": "npm run eslint -- --fix"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,8 @@
   "homepage": "https://github.com/Sebastien-Ahkrin/DiscordBot.ts#readme",
   "devDependencies": {
     "@types/node": "^18.11.17",
+    "@zakodium/eslint-config": "^6.0.0",
+    "prettier": "^2.8.1",
     "typescript": "^4.9.4"
   }
 }
