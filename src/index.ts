@@ -9,6 +9,8 @@ import {
   Collection,
   ChatInputCommandInteraction,
 } from 'discord.js';
+import path from 'path';
+import { ClientLog, ClientLogConfig, LogLevel } from './logs';
 
 enum DiscordGatewayIntentsString {
   DiscordClientAllIntents = 3276799,
@@ -31,6 +33,7 @@ interface CompleteCommand {
 }
 
 export class DiscordClient extends Client {
+  private logs: ClientLog | null = null;
   private commands: Collection<
     ApplicationCommandDataResolvable,
     CommandAction
@@ -81,5 +84,14 @@ export class DiscordClient extends Client {
     );
 
     command?.(interaction, interaction.options);
+  }
+
+  public async config(config: ClientLogConfig) {
+    this.logs = new ClientLog(config);
+    await this.logs.setup();
+  }
+
+  public async log(message: string, level: LogLevel = LogLevel.INFO) {
+    this.logs?.log(message, level);
   }
 }

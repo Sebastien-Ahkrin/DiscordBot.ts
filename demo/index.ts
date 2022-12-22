@@ -1,6 +1,11 @@
+import path from 'path';
 import { DiscordClient } from './../src/index';
 
 const client = new DiscordClient({ intents: 'DiscordClientAllIntents' });
+client.config({
+  folderDir: path.join('./demo', 'logs'),
+  format: 'DAY/MONTH/YEAR | HOUR:MINUTES | [LEVEL]: MESSAGE',
+});
 
 client.addCommand(
   {
@@ -48,4 +53,6 @@ client.addCommands([
   },
 ]);
 
-client.login();
+client.login('').then(() => {
+  client.log('Client Logged in.');
+});
