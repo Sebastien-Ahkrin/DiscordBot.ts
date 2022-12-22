@@ -4,13 +4,12 @@ const client = new DiscordClient({ intents: 'DiscordClientAllIntents' });
 
 client.addCommand(
   {
-    name: 'test',
-    description: 'Vous affiche le profils du joueur',
-    options: [{ name: 'user', type: 6, description: 'User', required: true }],
+    name: 'hello',
+    description: 'reply Hello, World!',
   },
   (interaction) => {
     interaction.reply('Hello, World!');
   },
 );
 
-client.login('SET A TOKEN');
+client.login('');
