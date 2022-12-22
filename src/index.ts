@@ -39,7 +39,7 @@ export class DiscordClient extends Client {
     CommandAction
   > = new Collection();
 
-  constructor(options: DiscordClientOptions) {
+  constructor(options: DiscordClientOptions, logConfig?: ClientLogConfig) {
     if (options.intents !== 'DiscordClientAllIntents') {
       super(options as ClientOptions);
     }
@@ -51,6 +51,10 @@ export class DiscordClient extends Client {
 
     this.on(Events.InteractionCreate, this.handleCommands);
     this.on(Events.ClientReady, this.registerCommands);
+
+    if (logConfig) {
+      this.config(logConfig);
+    }
   }
 
   /**

@@ -1,11 +1,13 @@
 import path from 'path';
 import { DiscordClient } from './../src/index';
 
-const client = new DiscordClient({ intents: 'DiscordClientAllIntents' });
-client.config({
-  folderDir: path.join('./demo', 'logs'),
-  format: 'DAY/MONTH/YEAR | HOUR:MINUTES | [LEVEL]: MESSAGE',
-});
+const client = new DiscordClient(
+  { intents: 'DiscordClientAllIntents' },
+  {
+    folderDir: path.join('./demo', 'logs'),
+    format: 'DAY/MONTH/YEAR | HOUR:MINUTES | [LEVEL]: MESSAGE',
+  },
+);
 
 client.addCommand(
   {
