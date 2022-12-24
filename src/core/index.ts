@@ -9,7 +9,6 @@ import {
   Collection,
   ChatInputCommandInteraction,
 } from 'discord.js';
-import path from 'path';
 import { ClientLog, ClientLogConfig, LogLevel } from './logs';
 
 enum DiscordGatewayIntentsString {
