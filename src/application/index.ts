@@ -1,7 +1,9 @@
 import { DiscordClient } from './../core';
-import dotenv from 'dotenv';
+import Env, { schema } from './../core/Env';
 
-dotenv.config();
+const env = Env.schema({
+  DISCORD_TOKEN: schema.string(),
+});
 
 const client = new DiscordClient(
   { intents: 'DiscordClientAllIntents' },
@@ -21,6 +23,6 @@ client.addCommand(
   },
 );
 
-client.login(process.env.DISCORD_TOKEN).then(() => {
+client.login(env.DISCORD_TOKEN).then(() => {
   client.log('Client connected');
 });
