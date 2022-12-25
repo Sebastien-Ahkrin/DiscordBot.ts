@@ -11,6 +11,7 @@ export enum LogLevel {
 export interface ClientLogConfig {
   folderDir: string;
   format: string;
+  withConsole?: boolean;
 }
 
 const fileName = 'dd-mm-yyyy-discord.logs';
@@ -39,6 +40,11 @@ export class ClientLog {
   public async log(message: string, level: LogLevel) {
     try {
       const fileName = join(this.config.folderDir, getFileName());
+
+      if (this.config.withConsole || false) {
+        console.log(this.getLogText(message, level));
+      }
+
       await appendFile(fileName, `${this.getLogText(message, level)}\n`);
     } catch (error) {
       console.error(error);
